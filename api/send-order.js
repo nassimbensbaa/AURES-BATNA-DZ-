@@ -1,11 +1,11 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // السماح فقط بـ POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'الطريقة غير مسموحة' });
     }
 
     try {
-        // التوكن موجود في متغيرات البيئة (Environment Variables) - غير مرئي في الكود!
+        // التوكن موجود في متغيرات البيئة (Environment Variables)
         const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
         const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
         const orderData = req.body;
         
-        // رسالة جميلة لإرسالها إلى التلغرام
+        // رسالة لإرسالها إلى التلغرام
         const message = `🌟 *طلب جديد من المتجر* 🌟
 ━━━━━━━━━━━━━━━━━━━
 👤 *العميل:* ${orderData.firstName} ${orderData.lastName}
@@ -53,4 +53,4 @@ export default async function handler(req, res) {
         console.error('خطأ في API:', error);
         return res.status(500).json({ success: false, error: error.message });
     }
-}
+};
